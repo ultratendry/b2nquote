@@ -1,0 +1,52 @@
+.quote-form-container {
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+}
+
+.quote-toggle-btn {
+  background: #0066cc;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.quote-form-wrapper {
+  display: none;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.quote-form-wrapper.open {
+  display: block;
+}
+
+.quote-form {
+  background: transparent;
+}
+
+.quote-form h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.quote-form input,
+.quote-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border-radius: 4px;
+  border: none;
+}
+
+.submit-btn {
+  background: #0066cc;
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}

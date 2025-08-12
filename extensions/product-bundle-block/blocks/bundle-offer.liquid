@@ -1,0 +1,138 @@
+<div id="bulk-discount-widget" class="bulk-discount-widget">
+  <h3 class="bulk-title">Bulk Discount Rules</h3>
+
+  {% assign first_variant = product.variants.first %}
+  <span id="product-unit-price" data-product-id="{{ product.id }}" data-price="{{ first_variant.price | divided_by: 100.0 }}"></span> <!-- Fallback price -->
+
+  <table class="bulk-table">
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Discount (%)</th>
+        <th>Discounted Price</th>
+      </tr>
+    </thead>
+    <tbody id="discount-rules">
+      {% for i in (1..6) %}
+        {% assign key = 'range_' | append: i %}
+        {% assign rule = block.settings[key] | split: "|" %}
+        <tr>
+          <td>{{ rule[0] }}</td>
+          <td>{{ rule[1] }}</td>
+          <td class="discounted-price" data-percent="{{ rule[1] | remove: '%' | strip }}"></td>
+        </tr>
+      {% endfor %}
+      <tr style="background-color: #f8f9fa; position: relative;">
+        <td>{{ block.settings.plus_range_250 | split: "|" | first }}</td>
+        <td>{{ block.settings.plus_range_250 | split: "|" | last }}</td>
+        <td>
+          <p class="know-more-btn" style="cursor: pointer; text-decoration: underline; margin: 0;">
+            {{ block.settings.know_more_text }}
+          </p>
+        </td>
+         <div id="knowMoreModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>{{ block.settings.know_more_modal_text }}</p>
+        </div>
+      </div>
+      </tr>
+     
+
+    </tbody>
+  </table>
+</div>
+
+<script id="bulk-discount-data" type="application/json">
+[
+  {% assign first = true %}
+  {% for i in (1..6) %}
+    {% assign key = 'range_' | append: i %}
+    {% assign val = block.settings[key] %}
+    {% if val != blank %}
+      {% assign rule = val | split: "|" %}
+      {% unless first %},{% endunless %}
+      {
+        "range": "{{ rule[0] | strip }}",
+        "percent": "{{ rule[1] | strip | remove: '%' }}"
+      }
+      {% assign first = false %}
+    {% endif %}
+  {% endfor %}
+]
+</script>
+
+<link rel="stylesheet" href="{{ 'bulk-discount.css' | asset_url }}" />
+<script src="{{ 'bulk-discount.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Bulk Discount Block",
+  "target": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "range_1",
+      "label": "Range 1 (e.g. 0–9|0%)",
+      "default": "0–9|0%"
+    },
+    {
+      "type": "text",
+      "id": "range_2",
+      "label": "Range 2",
+      "default": "10–29|2%"
+    },
+    {
+      "type": "text",
+      "id": "range_3",
+      "label": "Range 3",
+      "default": "30–49|4%"
+    },
+    {
+      "type": "text",
+      "id": "range_4",
+      "label": "Range 4",
+      "default": "50–74|6%"
+    },
+    {
+      "type": "text",
+      "id": "range_5",
+      "label": "Range 5",
+      "default": "75–99|9%"
+    },
+    {
+      "type": "text",
+      "id": "range_6",
+      "label": "Range 6",
+      "default": "100+|12%"
+    },
+    {
+      "type": "text",
+      "id": "plus_range_250",
+      "label": "250+ Range",
+      "default": "250+|12%"
+    },
+    {
+      "type": "text",
+      "id": "know_more_text",
+      "label": "Know More Button Text",
+      "default": "Know More"
+    },
+    {
+      "type": "text",
+      "id": "know_more_modal_text",
+      "label": "Know More Modal Text",
+      "default": "Additional discount contact for more details"
+    },
+    {
+      "type": "text",
+      "id": "know_more_modal_button_text",
+      "label": "Know More Modal Button Text",
+      "default": "Contact Us"
+    }
+  ]
+}
+{% endschema %}

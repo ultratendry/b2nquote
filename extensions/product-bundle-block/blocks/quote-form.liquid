@@ -1,0 +1,51 @@
+<div class="quote-form-container" style="background-color: {{ block.settings.background_color }}">
+  <button class="quote-toggle-btn" onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')">Request a Quote</button>
+
+  <div class="quote-form-wrapper">
+    <form class="quote-form" id="quote-form" novalidate>
+      <h3>Quote me <em>SUPER FAST!!</em></h3>
+
+      <label>Full Name *</label>
+      <input type="text" name="full_name" required>
+
+      <label>Company *</label>
+      <input type="text" name="company" required>
+
+      <label>Delivery Location *</label>
+      <input type="text" name="location" required>
+
+      <label>Message *</label>
+      <textarea name="message" required></textarea>
+
+      <label>Quantity *</label>
+      <input type="number" name="quantity" value="10" required>
+
+      <label>Email *</label>
+      <input type="email" name="email" required>
+
+      <label>Phone Number *</label>
+      <input type="tel" name="phone" required>
+
+      <button type="submit" class="submit-btn">Submit Quote</button>
+    </form>
+  </div>
+</div>
+
+<link rel="stylesheet" href="{{ 'quote-form.css' | asset_url }}" />
+<script src="{{ 'quote-form.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Quote Form Block",
+  "target": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ff6600"
+    }
+  ]
+}
+{% endschema %}
+

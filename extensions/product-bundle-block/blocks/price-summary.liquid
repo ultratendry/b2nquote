@@ -1,0 +1,78 @@
+<div class="price-summary-box">
+  <p class="price-line"><span>Original Price:</span> <span id="original-price">-</span></p>
+  <p class="price-line green"><span>Discount Amount:</span> <span id="discount-amount">-</span></p>
+  <hr />
+  <p class="price-line bold"><span>Final Price:</span> <span id="final-price">-</span></p>
+</div>
+
+<script id="bulk-discount-data" type="application/json">
+{% raw %}
+[
+  {% assign first = true %}
+  {% for i in (1..6) %}
+    {% assign key = 'range_' | append: i %}
+    {% assign val = settings[key] %}
+    {% if val != blank %}
+      {% assign rule = val | split: "|" %}
+      {% unless first %},{% endunless %}
+      {
+        "range": "{{ rule[0] | strip }}",
+        "percent": "{{ rule[1] | strip | remove: '%' }}"
+      }
+      {% assign first = false %}
+    {% endif %}
+  {% endfor %}
+]
+{% endraw %}
+</script>
+
+<link rel="stylesheet" href="{{ 'bulk-discount.css' | asset_url }}" />
+<script src="{{ 'price-summary.js' | asset_url }}" defer></script>
+
+{%schema%}
+{
+  "name": "Price Summary Block",
+  "target": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "range_1",
+      "label": "Range 1 (e.g. 0–9|0%)",
+      "default": "0–9|0%"
+    },
+    {
+      "type": "text",
+      "id": "range_2",
+      "label": "Range 2",
+      "default": "10–29|2%"
+    },
+    {
+      "type": "text",
+      "id": "range_3",
+      "label": "Range 3",
+      "default": "30–49|4%"
+    },
+    {
+      "type": "text",
+      "id": "range_4",
+      "label": "Range 4",
+      "default": "50–74|6%"
+    },
+    {
+      "type": "text",
+      "id": "range_5",
+      "label": "Range 5",
+      "default": "75–99|9%"
+    },
+    {
+      "type": "text",
+      "id": "range_6",
+      "label": "Range 6",
+      "default": "100+|12%"
+    }
+  ]
+}
+{% endschema %}
