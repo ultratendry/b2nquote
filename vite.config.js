@@ -2,8 +2,6 @@ import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 installGlobals({ nativeFetch: true });
 
@@ -52,12 +50,6 @@ export default defineConfig({
       allow: ["app", "node_modules"],
     },
   },
-  ssr: {
-    noExternal: [
-      // Add problematic CJS packages here, e.g.:
-      // "some-cjs-package"
-    ],
-  },
   plugins: [
     remix({
       ignoredRouteFiles: ["**/.*"],
@@ -78,60 +70,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@shopify/app-bridge-react", "@shopify/polaris"],
   },
-  define: {
-    'process.env': {},
-    'process.platform': '""',
-    'process.stdout': '{}',
-    'process.versions': '{}',
-    'process.version': '""',
-    'global': 'window',
-    'Buffer': 'undefined',
-    'fs': '{}',
-    'crypto': '{}',
-    'path': '{}',
-    'os': '{}',
-    'stream': '{}',
-    'util': '{}',
-    'assert': '{}',
-    'constants': '{}',
-    'child_process': '{}',
-    'net': '{}',
-    'tls': '{}',
-    'zlib': '{}',
-    'http': '{}',
-    'https': '{}',
-    'url': '{}',
-    'querystring': '{}',
-    'punycode': '{}',
-    'readline': '{}',
-    'string_decoder': '{}',
-    'timers': '{}',
-    'tty': '{}',
-    'dgram': '{}',
-    'dns': '{}',
-    'module': '{}',
-    'repl': '{}',
-    'vm': '{}',
-    'v8': '{}',
-    'worker_threads': '{}',
-    'inspector': '{}',
-    'perf_hooks': '{}',
-    'async_hooks': '{}',
-  },
-  resolve: {
-    alias: {
-      // Use ESM-compatible path resolution
-      'react-dom/client': 'react-dom/client',
-      'react-dom': 'react-dom',
-      'react': 'react',
-      // Node.js modules for browser
-      'node:crypto': false,
-      'node:fs': false,
-      'crypto': false,
-      'fs': false,
-      // ...add more as needed...
-    },
-  },
 });
-
-// Ensure this file uses ESM imports/exports and does not use require() or module.exports
