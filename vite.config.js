@@ -2,6 +2,8 @@ import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 installGlobals({ nativeFetch: true });
 
@@ -140,10 +142,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // Ensure Vite resolves React and ReactDOM to the correct versions and entry points
-      'react-dom/client': require.resolve('react-dom/client'),
-      'react-dom': require.resolve('react-dom'),
-      'react': require.resolve('react'),
+      // Use ESM-compatible path resolution
+      'react-dom/client': 'react-dom/client',
+      'react-dom': 'react-dom',
+      'react': 'react',
       // Node.js modules for browser
       'node:crypto': false,
       'node:fs': false,
