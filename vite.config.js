@@ -73,10 +73,6 @@ export default defineConfig({
   define: {
     // Prevent Vite from trying to polyfill Node.js core modules in the browser
     'process.env': {},
-    'process.platform': '""',
-    'process.stdout': '{}',
-    'process.versions': '{}',
-    'process.version': '""',
     'global': 'window',
     'Buffer': 'undefined',
     'fs': '{}',
@@ -144,7 +140,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // Optionally, alias Node.js modules to empty mocks for browser
+      // Alias Node.js modules to false for browser
       'node:crypto': false,
       'node:fs': false,
       'crypto': false,
