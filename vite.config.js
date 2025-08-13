@@ -52,6 +52,12 @@ export default defineConfig({
       allow: ["app", "node_modules"],
     },
   },
+  ssr: {
+    noExternal: [
+      // Add problematic CJS packages here, e.g.:
+      // "some-cjs-package"
+    ],
+  },
   plugins: [
     remix({
       ignoredRouteFiles: ["**/.*"],
@@ -73,8 +79,11 @@ export default defineConfig({
     include: ["@shopify/app-bridge-react", "@shopify/polaris"],
   },
   define: {
-    // Prevent Vite from trying to polyfill Node.js core modules in the browser
     'process.env': {},
+    'process.platform': '""',
+    'process.stdout': '{}',
+    'process.versions': '{}',
+    'process.version': '""',
     'global': 'window',
     'Buffer': 'undefined',
     'fs': '{}',
@@ -108,37 +117,6 @@ export default defineConfig({
     'inspector': '{}',
     'perf_hooks': '{}',
     'async_hooks': '{}',
-    'node:crypto': '{}',
-    'node:fs': '{}',
-    'node:path': '{}',
-    'node:os': '{}',
-    'node:stream': '{}',
-    'node:util': '{}',
-    'node:assert': '{}',
-    'node:constants': '{}',
-    'node:child_process': '{}',
-    'node:net': '{}',
-    'node:tls': '{}',
-    'node:zlib': '{}',
-    'node:http': '{}',
-    'node:https': '{}',
-    'node:url': '{}',
-    'node:querystring': '{}',
-    'node:punycode': '{}',
-    'node:readline': '{}',
-    'node:string_decoder': '{}',
-    'node:timers': '{}',
-    'node:tty': '{}',
-    'node:dgram': '{}',
-    'node:dns': '{}',
-    'node:module': '{}',
-    'node:repl': '{}',
-    'node:vm': '{}',
-    'node:v8': '{}',
-    'node:worker_threads': '{}',
-    'node:inspector': '{}',
-    'node:perf_hooks': '{}',
-    'node:async_hooks': '{}',
   },
   resolve: {
     alias: {

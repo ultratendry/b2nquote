@@ -3,7 +3,7 @@
 client_id = "dfb6a2f06a48e290d16ee687d405e904"
 name = "b2bquote-new"
 handle = "b2bquote-new"
-application_url = "https://examination-people-equipped-robbie.trycloudflare.com"
+application_url = "https://strategy-collecting-tahoe-hollow.trycloudflare.com"
 embedded = true
 
 [build]
@@ -26,11 +26,11 @@ api_version = "2025-07"
 scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://examination-people-equipped-robbie.trycloudflare.com/auth/callback", "https://examination-people-equipped-robbie.trycloudflare.com/auth/shopify/callback", "https://examination-people-equipped-robbie.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://strategy-collecting-tahoe-hollow.trycloudflare.com/auth/callback", "https://strategy-collecting-tahoe-hollow.trycloudflare.com/auth/shopify/callback", "https://strategy-collecting-tahoe-hollow.trycloudflare.com/api/auth/callback"]
 
 
 [app_proxy]
-url = "https://examination-people-equipped-robbie.trycloudflare.com/api/proxy"
+url = "https://strategy-collecting-tahoe-hollow.trycloudflare.com/api/proxy"
 subpath = "b2bquote-new"
 prefix = "apps"
 
