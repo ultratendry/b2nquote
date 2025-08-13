@@ -155,3 +155,5 @@ export default defineConfig({
     },
   },
 });
+
+// Ensure this file uses ESM imports/exports and does not use require() or module.exports
