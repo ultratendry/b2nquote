@@ -140,7 +140,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // Alias Node.js modules to false for browser
+      // Ensure Vite resolves React and ReactDOM to the correct versions and entry points
+      'react-dom/client': require.resolve('react-dom/client'),
+      'react-dom': require.resolve('react-dom'),
+      'react': require.resolve('react'),
+      // Node.js modules for browser
       'node:crypto': false,
       'node:fs': false,
       'crypto': false,
