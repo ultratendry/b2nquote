@@ -1,6 +1,5 @@
-
 import { json } from "@remix-run/node";
-// import { prisma } from "../lib/db.server.js";
+import { prisma } from "../db.server";
 
 export async function action({ request }) {
   console.log("✅ Submit Quote API hit");
