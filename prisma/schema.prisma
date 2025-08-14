@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Session {
-  id            String    @id @default(cuid())
+  id            String    @id
   shop          String
   state         String
   isOnline      Boolean   @default(false)
@@ -30,7 +30,6 @@ model Session {
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
 }
-
 
 model Quote {
   id        String   @id @default(cuid())
