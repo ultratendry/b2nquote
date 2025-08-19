@@ -3,7 +3,7 @@
 client_id = "dfb6a2f06a48e290d16ee687d405e904"
 name = "b2bquote-new"
 handle = "b2bquote-new"
-application_url = "https://haven-cartridges-cases-forces.trycloudflare.com"
+application_url = "https://asylum-salem-mysimon-owners.trycloudflare.com"
 embedded = true
 
 [build]
@@ -26,11 +26,11 @@ api_version = "2025-07"
 scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://haven-cartridges-cases-forces.trycloudflare.com/auth/callback", "https://haven-cartridges-cases-forces.trycloudflare.com/auth/shopify/callback", "https://haven-cartridges-cases-forces.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://asylum-salem-mysimon-owners.trycloudflare.com/auth/callback", "https://asylum-salem-mysimon-owners.trycloudflare.com/auth/shopify/callback", "https://asylum-salem-mysimon-owners.trycloudflare.com/api/auth/callback"]
 
 
 [app_proxy]
-url = "https://haven-cartridges-cases-forces.trycloudflare.com/api/proxy"
+url = "https://asylum-salem-mysimon-owners.trycloudflare.com/api/proxy"
 subpath = "b2bquote-new"
 prefix = "apps"
 
