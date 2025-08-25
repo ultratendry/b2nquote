@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch('/apps/b2bdiscount/submit-quote', {
+      const response = await fetch('/apps/b2bquote-new/submit-quote', {
         method: 'POST',
         body: formData,
       });

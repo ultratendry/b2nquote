@@ -22,6 +22,7 @@ export const loader = async ({ request }) => {
       OR: [
         { fullName: { contains: search } },
         { company: { contains: search } },
+        // If you ever filter by id, use: { id: Number(search) }
       ],
     }
     : {};
@@ -49,7 +50,7 @@ export const loader = async ({ request }) => {
 export async function action({ request }) {
   const form = await request.formData();
   const actionType = form.get("_action");
-  const id = form.get("id");
+  const id = Number(form.get("id")); // Ensure id is integer
 
   const url = new URL(request.url);
   const currentParams = url.search;
@@ -217,7 +218,7 @@ export default function QuoteListPage() {
                 fontWeight: 600,
               }}
             >
-              <div>ID</div>
+              <div>IDs</div>
               <div>Name</div>
               <div>Company</div>
               <div>Location</div>

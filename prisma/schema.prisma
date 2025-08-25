@@ -32,7 +32,7 @@ model Session {
 }
 
 model Quote {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   fullName  String
   company   String
   location  String
@@ -42,5 +42,5 @@ model Quote {
   phone     String
   status    String   @default("pending")
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @updatedAt
 }
