@@ -3,7 +3,7 @@
 client_id = "dfb6a2f06a48e290d16ee687d405e904"
 name = "b2bquote-new"
 handle = "b2bquote-new"
-application_url = "https://saved-rugs-navigate-owned.trycloudflare.com"
+application_url = "https://interference-saw-gps-danny.trycloudflare.com"
 embedded = true
 
 [build]
@@ -26,11 +26,11 @@ api_version = "2025-07"
 scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://saved-rugs-navigate-owned.trycloudflare.com/auth/callback", "https://saved-rugs-navigate-owned.trycloudflare.com/auth/shopify/callback", "https://saved-rugs-navigate-owned.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://interference-saw-gps-danny.trycloudflare.com/auth/callback", "https://interference-saw-gps-danny.trycloudflare.com/auth/shopify/callback", "https://interference-saw-gps-danny.trycloudflare.com/api/auth/callback"]
 
 
 [app_proxy]
-url = "https://saved-rugs-navigate-owned.trycloudflare.com/api/proxy"
+url = "https://interference-saw-gps-danny.trycloudflare.com/api/proxy"
 subpath = "b2bquote-new"
 prefix = "apps"
 

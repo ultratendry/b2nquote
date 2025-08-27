@@ -1,4 +1,5 @@
-// ...existing code...
+const url = "/quote"; // Make sure this matches your backend route
+
 fetch(url, options)
   .then(response => {
     if (!response.ok) {
@@ -19,4 +20,3 @@ fetch(url, options)
     console.error('AJAX Error:', error);
     // ...existing code...
   });
-// ...existing code...
