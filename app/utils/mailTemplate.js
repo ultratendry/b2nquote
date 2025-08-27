@@ -90,8 +90,8 @@ export function quoteMailTemplate({
     <!-- Brand Bar -->
     <div class="brand" style="height: 22mm; background: #0e1016 !important; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 14mm;">
       <div>
-        <h1 class="title">PromoForBusiness.com</h1>
-        <div class="tag">POWER YOUR BRAND. PROMOTE WITH PURPOSE</div>
+        <h1 class="title" style="color:green">PromoForBusiness.com</h1>
+        <div class="tag" style="color:green">POWER YOUR BRAND. PROMOTE WITH PURPOSE</div>
       </div>
     </div>
 
