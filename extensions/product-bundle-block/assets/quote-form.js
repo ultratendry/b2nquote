@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         body: formData,
       });
 
+      
       const result = await response.json();
 
       if (result.success) {
