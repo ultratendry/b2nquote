@@ -1,3 +1,4 @@
+//app/utils/mail.js
 import nodemailer from "nodemailer";
 
 if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
@@ -19,7 +20,7 @@ const transporter = nodemailer.createTransport({
 
 export async function sendQuoteMail({ to, subject, html }) {
     const mailOptions = {
-        from: `"Promo ForBusiness" <hello@promoforbusiness.com>`, // Use validated sender
+        from: `"Promo ForBusiness" <hello@promoforbusiness.com>`,
         to,
         subject,
         html,
