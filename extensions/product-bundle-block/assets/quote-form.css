@@ -5,12 +5,13 @@
 }
 
 .quote-toggle-btn {
-  background: #0066cc;
+  background: #112a46;
   color: white;
   padding: 10px 16px;
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .quote-form-wrapper {
@@ -29,6 +30,7 @@
 .quote-form h3 {
   font-size: 24px;
   font-weight: bold;
+  color: #112a46;
 }
 
 .quote-form input,
@@ -38,10 +40,11 @@
   margin: 6px 0 12px;
   border-radius: 4px;
   border: none;
+  background: #ffffff;
 }
 
 .submit-btn {
-  background: #0066cc;
+  background: #112a46;
   color: white;
   padding: 12px;
   border: none;
