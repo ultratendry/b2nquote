@@ -27,7 +27,6 @@
       <input type="tel" name="phone" required>
 
       <!-- 🔹 Hidden product details -->
-      
       <input type="hidden" name="product_title" value="{{ product.title }}">
       <input type="hidden" name="product_image" value="{{ product.featured_image | img_url: 'large' }}">
       <input type="hidden" name="unit_price" value="{{ product.selected_or_first_available_variant.price | money_without_currency }}">
