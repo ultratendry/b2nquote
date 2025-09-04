@@ -1,4 +1,4 @@
-<div class="quote-form-container" style="background-color: {{ block.settings.background_color }}">
+<div class="quote-form-container" style="background-color: {{ block.settings.background_color }}; margin: {{ block.settings.button_margin }}">
   <button class="quote-toggle-btn" style="background: {{ block.settings.button_background_color }}" onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')">Request a Quote</button>
 
   <div class="quote-form-wrapper">
@@ -58,6 +58,12 @@
       "id": "button_background_color",
       "label": "Button Background Color",
       "default": "#000000"
+    },
+    {
+      "type":"text",
+      "id":"button_margin",
+      "label":"Button Margin",
+      "default":"0px 0px 10px 0px"
     },
     {
       "type": "color",
