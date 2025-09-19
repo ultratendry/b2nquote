@@ -3,7 +3,7 @@
 client_id = "dfb6a2f06a48e290d16ee687d405e904"
 name = "b2bquote-new"
 handle = "b2bquote-new"
-application_url = "https://chair-outsourcing-alt-sleeve.trycloudflare.com"
+application_url = "https://whale-app-74zto.ondigitalocean.app"
 embedded = true
 
 [build]
@@ -25,11 +25,11 @@ api_version = "2025-07"
 scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://chair-outsourcing-alt-sleeve.trycloudflare.com/auth/callback", "https://chair-outsourcing-alt-sleeve.trycloudflare.com/auth/shopify/callback", "https://chair-outsourcing-alt-sleeve.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://whale-app-74zto.ondigitalocean.app/auth/callback", "https://whale-app-74zto.ondigitalocean.app/auth/shopify/callback", "https://whale-app-74zto.ondigitalocean.app/api/auth/callback"]
 
 
 [app_proxy]
-url = "https://chair-outsourcing-alt-sleeve.trycloudflare.com/api/proxy"
+url = "https://whale-app-74zto.ondigitalocean.app/api/proxy"
 subpath = "b2bquote-new"
 prefix = "apps"
 

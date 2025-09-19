@@ -83,7 +83,7 @@ export async function action({ request }) {
 
     // Admin email (template 5 for product/extension)
     await sendBrevoTemplateMail({
-      to: "ravindra.y@ultratend.com",
+      to: "asim.h@ultratend.com",
       templateId: 5,
       subject: adminSubject,
       params,

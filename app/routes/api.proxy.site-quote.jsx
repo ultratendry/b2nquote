@@ -81,7 +81,7 @@ export const action = async ({ request }) => {
         },
       });
       await sendBrevoTemplateMail({
-        to: "ravindra.y@ultratend.com",
+        to: "asim.h@ultratend.com",
         templateId: 8, // Use template 8 for site-quote
         subject: adminSubject,
         params: {
