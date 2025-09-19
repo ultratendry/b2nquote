@@ -42,7 +42,13 @@ export async function action({ request }) {
     const quoteRecord = await prisma.quote.create({
       data: { fullName, company, location, message, quantity, email, phone, status: "pending" },
     });
-    const quoteNumber = quoteRecord?.id ?? "N/A";
+
+    // Format date for subject: Date/Month/Year/ Quo No (always 4-digit zero-padded)
+    const now = new Date();
+    const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+    const quoteNumber = quoteRecord?.id ? quoteRecord.id.toString().padStart(4, '0') : "0000";
+    const customerSubject = `Your Quotation - ${dateStr}/ ${quoteNumber}`;
+    const adminSubject = `New Quote Received - ${dateStr}/ ${quoteNumber}`;
 
     const params = {
       name: fullName,
@@ -67,19 +73,19 @@ export async function action({ request }) {
       quoteNumber, 
     };
 
-    // Customer email
+    // Customer email (template 5 for product/extension)
     await sendBrevoTemplateMail({
       to: email,
-      templateId: process.env.BREVO_TEMPLATE_ID,
-      subject: "Know Your Quote",
+      templateId: 5, // Use template 5 for product/extension
+      subject: customerSubject,
       params,
     });
 
-    // Admin email with correct quoteNumber
+    // Admin email (template 5 for product/extension)
     await sendBrevoTemplateMail({
-      to: "asim.h@ultratend.com",
-      templateId: process.env.BREVO_TEMPLATE_ID,
-      subject: `New Quote Received - Quotation #${quoteNumber}`,
+      to: "ravindra.y@ultratend.com",
+      templateId: 5,
+      subject: adminSubject,
       params,
     });
 
