@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('#discount-rules tr').forEach(row => {
     const cell = row.querySelector('.discounted-price');
-    if (!cell) return; // Fix: skip if cell is null
+    if (!cell || !cell.dataset) return; // Fix: skip if cell or cell.dataset is null
     const percent = parseFloat(cell.dataset.percent || '0');
 
     const quantityCell = row.querySelector('td');

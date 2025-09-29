@@ -24,6 +24,11 @@
 
 .bulk-table th {
   background-color: #f5f5f5;
+  font-size: 18px;
+}
+
+.bulk-table td {
+  font-size: 16px;
 }
 
 .price-summary-box {
@@ -82,4 +87,17 @@
 
   .modal .close:hover {
     color: #000;
+  }
+
+  @media screen and (max-width: 767px) {
+  
+    .bulk-table th {
+      background-color: #f5f5f5;
+      font-size: 16px;
+    }
+
+    .bulk-table td {
+      font-size: 14px;
+    }
+
   }
