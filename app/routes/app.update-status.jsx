@@ -58,16 +58,6 @@ export const loader = async ({ request }) => {
 
 // Action
 export async function action({ request }) {
-  // Only require authentication for non-fetcher (non-AJAX) requests
-  const isAjax = request.headers.get("Sec-Fetch-Mode") === "cors";
-  if (!isAjax) {
-    try {
-      await authenticate.admin(request);
-    } catch (err) {
-      // Instead of redirect, return a 401 JSON error for all unauthenticated
-      return json({ success: false, error: "Not authenticated" }, { status: 401 });
-    }
-  }
   const form = await request.formData();
   const actionType = form.get("_action");
   const id = Number(form.get("id"));
@@ -91,6 +81,16 @@ export async function action({ request }) {
 
 // Component
 export default function QuoteListPage() {
+  const loaderData = useLoaderData();
+  const [quotes, setQuotes] = useState(loaderData.quotes);
+  const { totalCount, page, pageSize, search, sortBy, sortOrder } = loaderData;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  const [statusState, setStatusState] = useState(
+    Object.fromEntries(quotes.map((q) => [q.id, q.status]))
+  );
+
   const [dirtyStatusMap, setDirtyStatusMap] = useState({});
   const fetcher = useFetcher();
 
