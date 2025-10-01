@@ -1,12 +1,22 @@
 // app/routes/app.update-status.jsx
 
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData, useSearchParams, useFetcher } from "@remix-run/react";
 import { prisma } from "../db.server";
 import { authenticate } from "../shopify.server";
-import { useState, useCallback } from "react";
-import { Page, Layout, TextField, Select, InlineStack, Text, Button, Card, Modal } from "@shopify/polaris";
+import { useState, useEffect, useCallback } from "react";
+import {
+  Page,
+  Layout,
+  TextField,
+  Select,
+  InlineStack,
+  Text,
+  Button,
+  Card
+} from "@shopify/polaris";
 
+// Loader
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
 
@@ -19,12 +29,11 @@ export const loader = async ({ request }) => {
 
   const where = search
     ? {
-      OR: [
-        { fullName: { contains: search } },
-        { company: { contains: search } },
-        // If you ever filter by id, use: { id: Number(search) }
-      ],
-    }
+        OR: [
+          { fullName: { contains: search } },
+          { company: { contains: search } },
+        ],
+      }
     : {};
 
   const quotes = await prisma.quote.findMany({
@@ -47,52 +56,45 @@ export const loader = async ({ request }) => {
   });
 };
 
+// Action
 export async function action({ request }) {
+  // Only require authentication for non-fetcher (non-AJAX) requests
+  const isAjax = request.headers.get("Sec-Fetch-Mode") === "cors";
+  if (!isAjax) {
+    try {
+      await authenticate.admin(request);
+    } catch (err) {
+      // Instead of redirect, return a 401 JSON error for all unauthenticated
+      return json({ success: false, error: "Not authenticated" }, { status: 401 });
+    }
+  }
   const form = await request.formData();
   const actionType = form.get("_action");
-  const id = Number(form.get("id")); // Ensure id is integer
-
-  const url = new URL(request.url);
-  const currentParams = url.search;
+  const id = Number(form.get("id"));
 
   try {
     if (actionType === "delete") {
       await prisma.quote.delete({ where: { id } });
-      return json({ success: true });
+      return json({ success: true, id, message: "Record deleted successfully" });
     }
 
     if (actionType === "updateStatus") {
       const status = form.get("status");
       await prisma.quote.update({ where: { id }, data: { status } });
-      return json({ success: true });
+      return json({ success: true, id, status, message: "Status updated successfully" });
     }
   } catch (error) {
     console.error("❌ Action error:", error);
-    return json({ success: false, error: "Something went wrong" }, { status: 500 });
+    return json({ success: false, error: error.message });
   }
 }
 
+// Component
 export default function QuoteListPage() {
-  const {
-    quotes,
-    totalCount,
-    page,
-    pageSize,
-    search,
-    sortBy,
-    sortOrder,
-  } = useLoaderData();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const totalPages = Math.ceil(totalCount / pageSize);
-
-  const [statusState, setStatusState] = useState(
-    Object.fromEntries(quotes.map((q) => [q.id, q.status]))
-  );
-
   const [dirtyStatusMap, setDirtyStatusMap] = useState({});
-
   const fetcher = useFetcher();
+
+  const [flashMessage, setFlashMessage] = useState("");
 
   const handleStatusChange = (id, value, originalStatus) => {
     setStatusState((prev) => ({ ...prev, [id]: value }));
@@ -130,23 +132,43 @@ export default function QuoteListPage() {
     setSearchParams(searchParams);
   };
 
-  const [modalActive, setModalActive] = useState(false);
-  const [fileName, setFileName] = useState("quotes");
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data?.success) {
+      const data = fetcher.data;
 
-  const toggleModal = useCallback(() => setModalActive((active) => !active), []);
+      // Delete
+      if (data.id && data.message && fetcher.data._action === "delete") {
+        setQuotes((prev) => prev.filter((q) => q.id !== data.id));
 
-  const handleDownload = () => {
-    // trigger download
-    const url = `/export-csv?name=${encodeURIComponent(fileName)}.csv`;
-    window.location.href = url;
-    toggleModal(); // close modal
-  };
+        setStatusState((prev) => {
+          const copy = { ...prev };
+          delete copy[data.id];
+          return copy;
+        });
+
+        setFlashMessage(data.message);
+        setTimeout(() => setFlashMessage(""), 3000);
+      }
+
+      // Update status
+      if (data.id && data.status && data.message && fetcher.data._action === "updateStatus") {
+        setFlashMessage(data.message);
+        setTimeout(() => setFlashMessage(""), 3000);
+      }
+    }
+  }, [fetcher.state, fetcher.data]);
 
   return (
     <>
-      <Page title="Quotes"></Page>
+      <Page title="Quotes" />
       <Layout padding="4">
         <Layout.Section>
+          {flashMessage && (
+            <div style={{ marginBottom: "16px", color: "green", fontWeight: 600 }}>
+              {flashMessage}
+            </div>
+          )}
+
           <InlineStack align="space-between" gap="400" wrap>
             <TextField
               label="Search"
@@ -156,38 +178,6 @@ export default function QuoteListPage() {
               placeholder="Search name or company"
               autoComplete="off"
             />
-            <a href="/export-csv" style={{ textDecoration: "none" }}>
-              <Button variant="primary">Download CSV</Button>
-            </a>
-
-            {/* <Button onClick={toggleModal} variant="primary">
-              Download CSV
-            </Button>
-
-            <Modal
-              open={modalActive}
-              onClose={toggleModal}
-              title="Download CSV"
-              primaryAction={{
-                content: "Download",
-                onAction: handleDownload,
-              }}
-              secondaryActions={[
-                {
-                  content: "Cancel",
-                  onAction: toggleModal,
-                },
-              ]}
-            >
-              <Modal.Section>
-                <TextField
-                  label="File name"
-                  value={fileName}
-                  onChange={setFileName}
-                  autoComplete="off"
-                />
-              </Modal.Section>
-            </Modal> */}
 
             <Select
               label="Sort"
@@ -213,12 +203,11 @@ export default function QuoteListPage() {
                 borderBottom: "1px solid #ccc",
                 display: "grid",
                 width: "100%",
-                gridTemplateColumns:
-                  ".6fr 1.2fr 1.5fr 1.5fr 2fr 1.4fr 1fr 1fr 1.2fr 1.7fr",
+                gridTemplateColumns: ".6fr 1.2fr 1.5fr 1.5fr 2fr 1.4fr 1fr 1fr 1.2fr 1.7fr",
                 fontWeight: 600,
               }}
             >
-              <div>IDs</div>
+              <div>ID</div>
               <div>Name</div>
               <div>Company</div>
               <div>Location</div>
@@ -244,12 +233,11 @@ export default function QuoteListPage() {
                   borderTop: "1px solid #eee",
                   display: "grid",
                   width: "100%",
-                  gridTemplateColumns:
-                    ".7fr 1.2fr 1.5fr 1.5fr 2fr 1.4fr 1fr 1fr 1.2fr 1.7fr",
+                  gridTemplateColumns: ".7fr 1.2fr 1.5fr 1.5fr 2fr 1.4fr 1fr 1fr 1.2fr 1.7fr",
                   alignItems: "center",
                 }}
               >
-                <div>{quote.id || ""}</div>
+                <div>{quote.id}</div>
                 <div>{quote.fullName}</div>
                 <div>{quote.company || "—"}</div>
                 <div>{quote.location || "—"}</div>
@@ -268,30 +256,16 @@ export default function QuoteListPage() {
                       { label: "Rejected", value: "rejected" },
                     ]}
                     value={statusState[quote.id]}
-                    onChange={(value) =>
-                      handleStatusChange(quote.id, value, quote.status)
-                    }
+                    onChange={(value) => handleStatusChange(quote.id, value, quote.status)}
                   />
                 </div>
 
                 <div>
                   <InlineStack gap="100">
-                    <fetcher.Form
-                      method="post"
-                      action="/app/update-status"
-                      onSubmit={() => handleSave(quote.id)}
-                    >
+                    <fetcher.Form method="post" action="/app/update-status">
                       <input type="hidden" name="id" value={quote.id} />
-                      <input
-                        type="hidden"
-                        name="status"
-                        value={statusState[quote.id]}
-                      />
-                      <input
-                        type="hidden"
-                        name="_action"
-                        value="updateStatus"
-                      />
+                      <input type="hidden" name="status" value={statusState[quote.id]} />
+                      <input type="hidden" name="_action" value="updateStatus" />
                       <Button
                         submit
                         size="slim"
@@ -302,13 +276,22 @@ export default function QuoteListPage() {
                       </Button>
                     </fetcher.Form>
 
-                    <form method="post" action="/app">
+                    <fetcher.Form method="post" action="/app/update-status">
                       <input type="hidden" name="id" value={quote.id} />
                       <input type="hidden" name="_action" value="delete" />
-                      <Button submit size="slim" destructive>
+                      <Button
+                        submit
+                        size="slim"
+                        destructive
+                        onClick={(e) => {
+                          if (!window.confirm("Are you sure you want to delete this quote?")) {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
                         Delete
                       </Button>
-                    </form>
+                    </fetcher.Form>
                   </InlineStack>
                 </div>
               </div>
@@ -370,11 +353,9 @@ export default function QuoteListPage() {
                       </Button>
                     );
                   }
-
                   if (currentPage === page - 2 || currentPage === page + 2) {
                     return <span key={`ellipsis-${currentPage}`}>…</span>;
                   }
-
                   return null;
                 })}
 
