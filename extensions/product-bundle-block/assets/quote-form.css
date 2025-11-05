@@ -53,3 +53,10 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+button.submit-btn:hover {
+    background: var(--product-action-bg-hover);
+    color: var(--product-action-color-hover);
+    border-color: var(--product-action-border-hover);
+    box-shadow: var(--btn-3-horizontal-length) var(--btn-3-vertical-length) var(--btn-3-blur-radius) var(--btn-3-spread) var(--btn-3-all-bg-opacity-hover);
+}
