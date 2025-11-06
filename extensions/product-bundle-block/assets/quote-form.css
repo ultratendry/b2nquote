@@ -14,6 +14,10 @@
   font-size: 20px;
 }
 
+.quote-toggle-btn:hover {
+  opacity: 0.9;
+}
+
 .quote-form-wrapper {
   display: none;
   transition: max-height 0.3s ease-in-out;
