@@ -16,7 +16,7 @@
 
 .quote-toggle-btn:hover {
   opacity: 0.7;
-  background-color: var(--product-action-bg-hover);
+  background-color: var(--product-action-bg-hover) !important;
 }
 
 .quote-form-wrapper {
