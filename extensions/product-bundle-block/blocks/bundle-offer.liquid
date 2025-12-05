@@ -16,11 +16,13 @@
       {% for i in (1..6) %}
         {% assign key = 'range_' | append: i %}
         {% assign rule = block.settings[key] | split: "|" %}
+        {% if rule != blank %}
         <tr>
           <td>{{ rule[0] }}</td>
           <td>{{ rule[1] }}</td>
           <td class="discounted-price" data-percent="{{ rule[1] | remove: '%' | strip }}"></td>
         </tr>
+      {% endif %}
       {% endfor %}
       <tr style="background-color: #f8f9fa; position: relative;">
         <td>{{ block.settings.plus_range_250 | split: "|" | first }}</td>
