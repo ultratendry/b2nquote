@@ -41,23 +41,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('knowMoreModal');
-    const trigger = document.querySelector('.know-more-btn');
-    const closeBtn = modal.querySelector('.close');
+  // document.addEventListener('DOMContentLoaded', function () {
+  //   const modal = document.getElementById('knowMoreModal');
+  //   const trigger = document.querySelector('.know-more-btn');
+  //   const closeBtn = modal.querySelector('.close');
 
-    trigger.addEventListener('click', function () {
-      modal.style.display = 'block';
-    });
+  //   trigger.addEventListener('click', function () {
+  //     modal.style.display = 'block';
+  //   });
 
-    closeBtn.addEventListener('click', function () {
-      modal.style.display = 'none';
-    });
+  //   closeBtn.addEventListener('click', function () {
+  //     modal.style.display = 'none';
+  //   });
 
-    window.addEventListener('click', function (event) {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
+  //   window.addEventListener('click', function (event) {
+  //     if (event.target === modal) {
+  //       modal.style.display = 'none';
+  //     }
+  //   });
+  // });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('knowMoreModal');
+  const trigger = document.querySelector('.know-more-btn');
+  if (!modal || !trigger) return;
+  const closeBtn = modal.querySelector('.close');
+
+  if (!closeBtn) return;
+
+  trigger.addEventListener('click', function () {
+    modal.style.display = 'block';
   });
 
+  closeBtn.addEventListener('click', function () {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', function (event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
