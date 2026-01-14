@@ -1,3 +1,328 @@
+
+
+{% assign normalized_tags = '' %}
+
+{% for tag in product.tags %}
+  {% assign t = tag | downcase %}
+  {% assign t = t | replace: "'", "" | replace: '"', "" | replace: "&", "" %}
+  {% assign t = t | replace: "-", "" | replace: "_", "" | replace: " ", "" %}
+  {% assign normalized_tags = normalized_tags | append: t | append: ',' %}
+{% endfor %}
+{% assign tags = normalized_tags | split: ',' %}
+{% assign moq = 0 %}
+
+
+{%- comment -%} 👕 Apparel {%- endcomment -%}
+{% if tags contains 'massagegun' 
+    or tags contains 'projectors' 
+    or tags contains 'tablecloths' %}
+  {% assign moq = 1 %}
+
+{% elsif tags contains 'raincoat'
+  or tags contains 'fleeces'
+  or tags contains 'socks'
+  or tags contains 'tunics' %}
+  {% assign moq = 15 %}
+
+{% elsif tags contains 'tshirts' or tags contains 'tshirt' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'menstshirts'
+  or tags contains 'womentshirts'
+  or tags contains 'scarves'
+  or tags contains 'sportsshorts'
+  or tags contains 'bathrobes'
+  or tags contains 'shoes'
+  or tags contains 'sunvisor'
+  or tags contains 'slippers' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'menpoloshirt'
+  or tags contains 'poloshirts'
+  or tags contains 'ladiesshirt'
+  or tags contains 'mensshirts'
+  or tags contains 'womenpoloshirt' %}
+  {% assign moq = 20 %}
+
+{% elsif tags contains 'sweatshirts' %}
+  {% assign moq = 30 %}
+
+{% elsif tags contains 'hoodies'
+  or tags contains 'jackets'
+  or tags contains 'hats'
+  or tags contains 'baseballcap'
+  or tags contains 'cap'
+  or tags contains 'trousers'
+  or tags contains 'safetyvest'
+  or tags contains 'towels'
+  or tags contains 'fitnesstowels'
+  or tags contains 'gloves'
+  or tags contains 'aprons'
+  or tags contains 'kidscaps'
+  or tags contains 'kidsjackets' %}
+  {% assign moq = 25 %}
+
+{% elsif tags contains 'wristbands'
+  or tags contains 'shoelaces' %}
+  {% assign moq = 100 %}
+
+{%- comment -%} 🖊 Pens {%- endcomment -%}
+{% elsif tags contains 'plasticpens'
+  or tags contains 'highlighter'
+  or tags contains 'metalpens'
+  or tags contains 'ecopens' %}
+  {% assign moq = 100 %}
+
+{%- comment -%} 🍺 Drinkware {%- endcomment -%}
+{% elsif tags contains 'icebuckets' %}
+  {% assign moq = 12 %}
+
+{% elsif tags contains 'beerglass'
+  or tags contains 'barglassware'
+  or tags contains 'enamelmugs'
+  or tags contains 'pantonemugs'
+  or tags contains 'chinaandporcelainmugs'
+  or tags contains 'copperbottle'
+  or tags contains 'thermoflask'
+  or tags contains 'thermalwaterbottle'
+  or tags contains 'metaltravelmugs'
+  or tags contains 'bottleopeners'
+  or tags contains 'seedstick'
+  or tags contains 'dripmats'
+  or tags contains 'barrunners'
+  or tags contains 'steemedglasses'
+  or tags contains 'beerglasses'
+  or tags contains 'glassmugs' %}
+  {% assign moq = 25 %}
+
+{% elsif tags contains 'ceramicmugs'
+  or tags contains 'metaltraveltumbler'
+  or tags contains 'etchedmugs' %}
+  {% assign moq = 40 %}
+
+{% elsif tags contains 'plasticmugs'
+  or tags contains 'chinamugs'
+  or tags contains 'heatchangingmugs'
+  or tags contains 'fullcolourphotomugs'
+  or tags contains 'trays' %}
+  {% assign moq = 30 %}
+
+{% elsif tags contains 'plastictumblers'
+  or tags contains 'thermalmug' %}
+  {% assign moq = 35 %}
+
+{% elsif tags contains 'insulatedtumbler'
+  or tags contains 'metaltumbler'
+  or tags contains 'flasks' %}
+  {% assign moq = 20 %}
+
+{% elsif tags contains 'plasticcups' %}
+  {% assign moq = 45 %}
+
+{% elsif tags contains 'metalwaterbottle'
+  or tags contains 'glasswaterbottle'
+  or tags contains 'fruitinfuser'
+  or tags contains 'expressocups'
+  or tags contains 'polypropylene'
+  or tags contains 'stainlesssteelcup'
+  or tags contains 'cocktailshaker'
+  or tags contains 'metaltumbler'
+  or tags contains 'polystyrenecups' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'plasticwaterbottle'
+  or tags contains 'papercups'
+  or tags contains 'coaster'
+  or tags contains 'sportswaterbottle'
+  or tags contains 'shotglasses'
+  or tags contains 'straws'
+  or tags contains 'chalkmugs'
+  or tags contains 'papercupsleeves' %}
+  {% assign moq = 100 %}
+
+{%- comment -%} 🎒 Bags & Travel {%- endcomment -%}
+{% elsif tags contains 'totebags'
+  or tags contains 'paperbags'
+  or tags contains 'plasticcarrierbags'
+  or tags contains 'eyemask'
+  or tags contains 'cardholder' %}
+  {% assign moq = 100 %}
+
+{% elsif tags contains 'drawstringbags'
+  or tags contains 'toiletrybags'
+  or tags contains 'documentbags'
+  or tags contains 'conferencebags'
+  or tags contains 'travelsets' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'laptopbag'
+  or tags contains 'lunchbags'
+  or tags contains 'travelbagstrolleys'
+  or tags contains 'travelkit' %}
+  {% assign moq = 20 %}
+
+{% elsif tags contains 'travelpouches'
+  or tags contains 'pouchbag'
+  or tags contains 'nonwovenpouches' %}
+  {% assign moq = 40 %}
+
+{% elsif tags contains 'dufflebags' %}
+  {% assign moq = 10 %}
+
+{% elsif tags contains 'travelcannister' %}
+  {% assign moq = 5 %}
+
+{% elsif tags contains 'backpacks'
+  or tags contains 'keychaingift'
+  or tags contains 'pengift' %}
+  {% assign moq = 25 %}
+
+{% elsif tags contains 'jutebags' %}
+  {% assign moq = 30 %}
+
+{%- comment -%} 🏢 Office & Supply {%- endcomment -%}
+{% elsif tags contains 'notebooksa5' %}
+  {% assign moq = 60 %}
+
+{% elsif tags contains 'crystalglassware' %}
+  {% assign moq = 10 %}
+
+{% elsif tags contains 'deskorganizers' %}
+  {% assign moq = 20 %}
+
+{% elsif tags contains 'deskblotters'
+  or tags contains 'conferencefolder'
+  or tags contains 'aromadiffuser' %}
+  {% assign moq = 25 %}
+
+{% elsif tags contains 'notebooksa6' %}
+  {% assign moq = 35 %}
+
+{% elsif tags contains 'memopads'
+  or tags contains 'memoblocks' %}
+  {% assign moq = 40 %}
+
+{% elsif tags contains 'notebooksa4'
+  or tags contains 'notepadsa4'
+  or tags contains 'notepadsa5'
+  or tags contains 'a7stickynotes'
+  or tags contains 'ruler'
+  or tags contains 'pencilsharpeners'
+  or tags contains 'rubbers'
+  or tags contains 'penstand'
+  or tags contains 'mousepads'
+  or tags contains 'eraser'
+  or tags contains 'passholders'
+  or tags contains 'pencil' %}
+  {% assign moq = 100 %}
+
+{% elsif tags contains 'recyclednotebook'
+  or tags contains 'a5stickynotes'
+  or tags contains 'calendar'
+  or tags contains 'deskclocks'
+  or tags contains 'tabletfolder'
+  or tags contains 'desklamp' %}
+  {% assign moq = 50 %}
+
+{%- comment -%} 🔌 Gadgets {%- endcomment -%}
+{% elsif tags contains 'wirelessearphone'
+  or tags contains 'speaker'
+  or tags contains 'mouses'
+  or tags contains 'camera'
+  or tags contains 'usbpowerchargers' %}
+  {% assign moq = 10 %}
+
+{% elsif tags contains 'headphones' 
+  or tags contains 'qrcode' 
+  or tags contains 'magnets' 
+  or tags contains 'metaltags' 
+  or tags contains 'plasticcards' %}
+  {% assign moq = 15 %}
+
+{% elsif tags contains 'powerbank'
+  or tags contains 'wirelesscharger'
+  or tags contains 'bluetoothspeaker'
+  or tags contains 'wirelessearbuds'
+  or tags contains 'umbrella'
+  or tags contains 'fleeceblankets' %}
+  {% assign moq = 20 %}
+
+{% elsif tags contains 'touchscreengloves'
+  or tags contains 'touchscreenstylushes'
+  or tags contains 'usbhubs'
+  or tags contains 'solarpowerchargers'
+  or tags contains 'weatherstationcalenderclock'
+  or tags contains 'digitalclocks'
+  or tags contains 'digitallocks'
+  or tags contains 'keyboard'
+  or tags contains 'weatherstation' 
+  or tags contains 'giftsets' %}
+  {% assign moq = 25 %}
+
+{% elsif tags contains 'mobilecaseholder'
+  or tags contains 'wiredearphones'
+  or tags contains 'webcamcover'
+  or tags contains 'watch'
+  or tags contains 'smartbands'
+  or tags contains 'usbchargingcables' 
+  or tags contains 'phonestand' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'lanyard'
+  or tags contains 'keychains'
+  or tags contains 'luggagetags'
+  or tags contains 'keyrings'
+  or tags contains 'eventpacks'
+  or tags contains 'usbflashdrive'
+  or tags contains 'microfibrescreencloth' 
+  or tags contains 'pedometers' %}
+  {% assign moq = 100 %}
+
+{%- comment -%} 🌴 Outdoors {%- endcomment -%}
+{% elsif tags contains 'beachchairsloungers' 
+    or tags contains 'picnictable' %}
+  {% assign moq = 5 %}
+
+{% elsif tags contains 'beachtoys'
+  or tags contains 'sports'
+  or tags contains 'games' %}
+  {% assign moq = 50 %}
+
+{% elsif tags contains 'sunglasses'
+  or tags contains 'gardening'
+  or tags contains 'cutlerysets' %}
+  {% assign moq = 100 %}
+
+{%- comment -%} 🩺 Safety {%- endcomment -%}
+{% elsif tags contains 'careessentials'
+  or tags contains 'firstaidkits'
+  or tags contains 'antistress'
+  or tags contains 'sweet'
+  or tags contains 'bannerandpos'
+  or tags contains 'drinks'
+  or tags contains 'nameandbadges'
+  or tags contains 'biscuitsandsnacks'
+  or tags contains 'warmpads'
+  or tags contains 'medicalproducts'
+  or tags contains 'mirror'
+  or tags contains 'lipbalm' %}
+
+  {% assign moq = 100 %}
+
+{% elsif tags contains 'pillboxes'
+  or tags contains 'thermometer'
+  or tags contains 'ecosurvivalkit'
+  or tags contains 'tissuebox'
+  or tags contains 'wetwipes'
+  or tags contains 'tablecloths'
+  %}
+  {% assign moq = 50 %}
+
+{%- comment -%} 🏆 Awards {%- endcomment -%}
+{% elsif tags contains 'award'
+  or tags contains 'paperweight' %}
+  {% assign moq = 10 %}
+{% endif %}
 <div class="quote-form-container" style="background-color: {{ block.settings.background_color }}; margin: {{ block.settings.button_margin }}">
   <button class="quote-toggle-btn" style="background: {{ block.settings.button_background_color }}" onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')">Request a Quote</button>
 
@@ -16,9 +341,10 @@
 
       <label>Enter Your Requirements *</label>
       <textarea name="message" required></textarea>
-<!--
+
       <label>Quantity *</label>
-      <input type="number" name="quantity" value="10" required> -->
+      <input type="number" name="quantity" value="{{ moq }}" min="{{ moq }}" required>
+     <!-- <input type="number" name="quantity" value="10" required> -->
 
       <label>Email *</label>
       <input type="email" name="email" required>
