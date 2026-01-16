@@ -52,8 +52,8 @@ export const action = async ({ request }) => {
           quantity: quantityRaw, // Save as string, matches schema
           message,
           product,
-          productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, // Save as base64 string
-          logoImage: logoImageBuffer ? logoImageBuffer.toString('base64') : null, // Save as base64 string
+          productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, 
+          logoImage: logoImageBuffer ? logoImageBuffer.toString('base64') : null,
         },
       });
     } catch (dbErr) {
