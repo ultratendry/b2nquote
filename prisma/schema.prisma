@@ -56,5 +56,6 @@ model QuoteRequest {
   message      String?
   product      String?
   productImage String?
+  logoImage    String?
   createdAt    DateTime @default(now())
 }
