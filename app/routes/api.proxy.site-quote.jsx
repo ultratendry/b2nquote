@@ -37,9 +37,10 @@ export const action = async ({ request }) => {
     const product = form.get("product")?.toString().trim() || null;
 
     // Validation (all required fields, including company, location, product)
-    if (!name || !company || !location || !email || !phone || !quantity || !message || !product) {
-      return json({ success: false, error: "Missing required fields" }, { status: 400 });
-    }
+   if (!name || !company || !location || !email || !phone || !quantity || !message || !product) {
+  return json({ success: false, error: "Missing required fields" }, { status: 400 });
+}
+
 
     // Save to DB
     try {
@@ -50,7 +51,7 @@ export const action = async ({ request }) => {
           location,
           email,
           phone,
-          quantity: quantityRaw, // Save as string, matches schema
+          quantity: quantity, // Save as number, matches schema
           message,
           product,
           productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, 
