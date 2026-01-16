@@ -37,9 +37,21 @@ export const action = async ({ request }) => {
     const product = form.get("product")?.toString().trim() || null;
 
     // Validation (all required fields, including company, location, product)
-   if (!name || !company || !location || !email || !phone || !quantity || !message || !product) {
-  return json({ success: false, error: "Missing required fields" }, { status: 400 });
+// ---- VALIDATION ----
+if (
+  !name ||
+  !email ||
+  !message ||
+  !product ||
+  !quantityRaw ||
+  isNaN(quantity)
+) {
+  return json(
+    { success: false, error: "Missing or invalid required fields" },
+    { status: 400 }
+  );
 }
+
 
 
     // Save to DB
