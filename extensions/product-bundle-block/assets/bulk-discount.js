@@ -41,22 +41,50 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const modal = document.getElementById('knowMoreModal');
+//   const trigger = document.querySelector('.know-more-btn');
+//   if (!modal || !trigger) return;
+//   const closeBtn = modal.querySelector('.close');
+
+//   if (!closeBtn) return;
+
+//   trigger.addEventListener('click', function () {
+//     modal.style.display = 'block';
+//   });
+
+//   closeBtn.addEventListener('click', function () {
+//     modal.style.display = 'none';
+//   });
+
+//   window.addEventListener('click', function (event) {
+//     if (event.target === modal) {
+//       modal.style.display = 'none';
+//     }
+//   });
+// });
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('knowMoreModal');
   const trigger = document.querySelector('.know-more-btn');
-  if (!modal || !trigger) return;
+
+  if (!modal || !trigger) return; // exit if modal or trigger missing
+
   const closeBtn = modal.querySelector('.close');
+  if (!closeBtn) return; // exit if no close button
 
-  if (!closeBtn) return;
-
+  // Open modal
   trigger.addEventListener('click', function () {
     modal.style.display = 'block';
   });
 
+  // Close modal on close button
   closeBtn.addEventListener('click', function () {
     modal.style.display = 'none';
   });
 
+  // Close modal on click outside
   window.addEventListener('click', function (event) {
     if (event.target === modal) {
       modal.style.display = 'none';

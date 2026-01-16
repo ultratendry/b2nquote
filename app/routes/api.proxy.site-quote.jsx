@@ -31,17 +31,22 @@ export const action = async ({ request }) => {
     const location = form.get("location")?.toString().trim() || null;
     const email = form.get("email")?.toString().trim() || "";
     const phone = form.get("phone")?.toString().trim() || null;
-    const quantityRaw = form.get("quantity")?.toString().trim() || null;
-    const quantity = quantityRaw ? parseInt(quantityRaw, 10) : null;
+const quantityRaw = form.get("quantity")?.toString().trim() || "0";
+const quantity = parseInt(quantityRaw, 10);
     const message = form.get("message")?.toString().trim() || null;
     const product = form.get("product")?.toString().trim() || null;
 
-    if (!name || !email || !message || !product || !quantityRaw || isNaN(quantity)) {
-      return json(
-        { success: false, error: "Missing or invalid required fields" },
-        { status: 400 }
-      );
-    }
+
+console.log({ name, email, message, product, quantityRaw, quantity });
+
+if (!name.trim() || !email.trim() || !message?.trim() || !product?.trim() || quantity <= 0) {
+  return json(
+    { success: false, error: "Missing or invalid required fields" },
+    { status: 400 } // ✅ Correct status
+  );
+}
+
+
 
     // --- 3. Save to DB ---
     let savedQuote;
