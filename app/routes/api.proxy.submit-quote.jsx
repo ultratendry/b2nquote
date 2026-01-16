@@ -32,12 +32,14 @@ export async function action({ request }) {
       return json({ success: false, error: "Missing or invalid required fields" }, { status: 400 });
     }
 
-    const discountPct    = getBulkDiscountForQty(quantity);
-    const discountedUnit = unitPrice * (1 - discountPct / 100);
-    const subtotalVal    = discountedUnit * quantity;
-    const VAT_RATE       = 20;
-    const taxAmt         = subtotalVal * (VAT_RATE / 100);
-    const grandTotalVal  = subtotalVal + taxAmt;
+    // const discountPct    = getBulkDiscountForQty(quantity);
+    // const discountedUnit = unitPrice * (1 - discountPct / 100);
+    // const subtotalVal    = discountedUnit * quantity;
+    // const VAT_RATE       = 20;
+    // const taxAmt         = subtotalVal * (VAT_RATE / 100);
+    // const grandTotalVal  = subtotalVal + taxAmt;
+    const subtotalVal   = unitPrice * quantity;
+    const grandTotalVal = subtotalVal;
 
     const quoteRecord = await prisma.quote.create({
       data: { fullName, company, location, message, quantity, email, phone, status: "pending" },
@@ -63,12 +65,12 @@ export async function action({ request }) {
       productImage,
       itemCode,
       unitPrice: fmt(unitPrice),
-      discount: discountPct.toString(),
-      discountedUnit: fmt(discountedUnit),
+      // discount: discountPct.toString(),
+      // discountedUnit: fmt(discountedUnit),
       quantity,
       serviceTotal: fmt(subtotalVal),
       subtotal: fmt(subtotalVal),
-      tax: VAT_RATE.toString(),
+      // tax: VAT_RATE.toString(),
       grandTotal: fmt(grandTotalVal),
       quoteNumber, 
     };
