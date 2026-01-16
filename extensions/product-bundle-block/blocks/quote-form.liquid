@@ -327,7 +327,7 @@
   <button class="quote-toggle-btn" style="background: {{ block.settings.button_background_color }}" onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')">Request a Quote</button>
 
   <div class="quote-form-wrapper">
-    <form class="quote-form" id="quote-form" novalidate onsubmit="console.log('Quote form submitted');">
+    <form class="quote-form" id="quote-form" novalidate>
       <h3>Unlock Your <em>Business Pricing !!</em></h3>
 
       <label>Full Name *</label>
@@ -357,7 +357,7 @@
       <input type="hidden" name="unit_price" value="{{ product.selected_or_first_available_variant.price | money_without_currency }}">
       {%- assign current_variant = product.selected_or_first_available_variant -%}
       <input type="hidden" name="item_code" value="{{ current_variant.sku }}">
-      <button type="submit" class="submit-btn" onclick="console.log('Submit button clicked');">Submit Quote</button>
+      <button type="submit" class="submit-btn">Submit Quote</button>
     </form>
   </div>
 </div>
