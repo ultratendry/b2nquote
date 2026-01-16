@@ -58,7 +58,7 @@ export const action = async ({ request }) => {
       });
     } catch (dbErr) {
       console.error("❌ Prisma DB error:", dbErr);
-      return json({ success: false, error: dbErr.message || "DB error" }, { status: 500 });
+      return json({ success: false, error: dbErr.message || dbErr.toString() || "DB error" }, { status: 500 });
     }
 
     // Generate subject in format: DD/MM/YYYY/ 0008
@@ -116,6 +116,10 @@ export const action = async ({ request }) => {
       });
     } catch (mailErr) {
       console.error("❌ Error sending mail:", mailErr);
+      if (mailErr && mailErr.stack) {
+        console.error("❌ Error stack:", mailErr.stack);
+      }
+      return json({ success: false, error: mailErr.message || mailErr.toString() || "Mail error" }, { status: 500 });
     }
 
     return json({ success: true });
