@@ -342,9 +342,8 @@
       <label>Enter Your Requirements *</label>
       <textarea name="message" required></textarea>
 
-     <!-- <label>Quantity *</label>
+    <label>Quantity *</label>
       <input type="number" name="quantity" value="{{ moq }}" min="{{ moq }}" required>
-      <input type="number" name="quantity" value="10" required> -->
 
       <label>Email *</label>
       <input type="email" name="email" required>
@@ -358,13 +357,6 @@
       <input type="hidden" name="unit_price" value="{{ product.selected_or_first_available_variant.price | money_without_currency }}">
       {%- assign current_variant = product.selected_or_first_available_variant -%}
       <input type="hidden" name="item_code" value="{{ current_variant.sku }}">
-
-      <!-- Debug output, remove later 
-      <p>DEBUG TITLE: {{ product.title }}</p>
-      <p>DEBUG IMAGE: {{ product.featured_image | img_url: '100x100' }}</p>
-      <p>DEBUG PRICE: {{ product.selected_or_first_available_variant.price | money }}</p>
-      <p>DEBUG TITLE: {{ current_variant.sku }}</p>
-      -->
       <button type="submit" class="submit-btn">Submit Quote</button>
     </form>
   </div>
