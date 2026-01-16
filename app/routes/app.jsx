@@ -47,7 +47,8 @@ export default function App() {
         <Link to="/app/update-status" rel="home">
           Home
         </Link>
-        <Link to="/app/update-status">Additional page</Link>
+        <Link to="/app/update-status">Update Status</Link>
+        <Link to="/app/quote-request">Quote Requests</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>
