@@ -16,6 +16,14 @@ export const action = async ({ request }) => {
       productImageBuffer = Buffer.from(arrayBuffer);
     }
 
+    // Handle optional logo image
+    let logoImageBuffer = null;
+    const logoFile = form.get("logoImage");
+    if (logoFile && typeof logoFile === "object" && "arrayBuffer" in logoFile) {
+      const logoArrayBuffer = await logoFile.arrayBuffer();
+      logoImageBuffer = Buffer.from(logoArrayBuffer);
+    }
+
     // Build data (ensure all fields are correct types for Prisma)
     const name = form.get("name")?.toString().trim() || "";
     const company = form.get("company")?.toString().trim() || null;
@@ -33,19 +41,25 @@ export const action = async ({ request }) => {
     }
 
     // Save to DB
-    await prisma.quoteRequest.create({
-      data: {
-        name,
-        company,
-        location,
-        email,
-        phone,
-        quantity: quantityRaw, // Save as string, matches schema
-        message,
-        product,
-        productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, // Save as base64 string
-      },
-    });
+    try {
+      await prisma.quoteRequest.create({
+        data: {
+          name,
+          company,
+          location,
+          email,
+          phone,
+          quantity: quantityRaw, // Save as string, matches schema
+          message,
+          product,
+          productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, // Save as base64 string
+          logoImage: logoImageBuffer ? logoImageBuffer.toString('base64') : null, // Save as base64 string
+        },
+      });
+    } catch (dbErr) {
+      console.error("❌ Prisma DB error:", dbErr);
+      return json({ success: false, error: dbErr.message || "DB error" }, { status: 500 });
+    }
 
     // Generate subject in format: DD/MM/YYYY/ 0008
     const now = new Date();
@@ -78,6 +92,7 @@ export const action = async ({ request }) => {
           date: new Date().toLocaleDateString("en-GB"),
           preparedBy: "PromoForBusiness",
           productImage: productImageBuffer ? `data:image/jpeg;base64,${productImageBuffer.toString('base64')}` : undefined,
+          logoImage: logoImageBuffer ? `data:image/png;base64,${logoImageBuffer.toString('base64')}` : undefined,
         },
       });
       await sendBrevoTemplateMail({
@@ -95,6 +110,7 @@ export const action = async ({ request }) => {
           product,
           date: new Date().toLocaleDateString("en-GB"),
           productImage: productImageBuffer ? `data:image/jpeg;base64,${productImageBuffer.toString('base64')}` : undefined,
+          logoImage: logoImageBuffer ? `data:image/png;base64,${logoImageBuffer.toString('base64')}` : undefined,
           preparedBy: "PromoForBusiness",
         },
       });
