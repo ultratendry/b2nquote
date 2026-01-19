@@ -1,27 +1,19 @@
-
-
 {% assign normalized_tags = '' %}
 
 {% for tag in product.tags %}
   {% assign t = tag | downcase %}
-  {% assign t = t | replace: "'", "" | replace: '"', "" | replace: "&", "" %}
-  {% assign t = t | replace: "-", "" | replace: "_", "" | replace: " ", "" %}
+  {% assign t = t | replace: "'", '' | replace: '"', '' | replace: '&', '' %}
+  {% assign t = t | replace: '-', '' | replace: '_', '' | replace: ' ', '' %}
   {% assign normalized_tags = normalized_tags | append: t | append: ',' %}
 {% endfor %}
 {% assign tags = normalized_tags | split: ',' %}
 {% assign moq = 0 %}
 
-
 {%- comment -%} 👕 Apparel {%- endcomment -%}
-{% if tags contains 'massagegun' 
-    or tags contains 'projectors' 
-    or tags contains 'tablecloths' %}
+{% if tags contains 'massagegun' or tags contains 'projectors' or tags contains 'tablecloths' %}
   {% assign moq = 1 %}
 
-{% elsif tags contains 'raincoat'
-  or tags contains 'fleeces'
-  or tags contains 'socks'
-  or tags contains 'tunics' %}
+{% elsif tags contains 'raincoat' or tags contains 'fleeces' or tags contains 'socks' or tags contains 'tunics' %}
   {% assign moq = 15 %}
 
 {% elsif tags contains 'tshirts' or tags contains 'tshirt' %}
@@ -34,14 +26,16 @@
   or tags contains 'bathrobes'
   or tags contains 'shoes'
   or tags contains 'sunvisor'
-  or tags contains 'slippers' %}
+  or tags contains 'slippers'
+%}
   {% assign moq = 50 %}
 
 {% elsif tags contains 'menpoloshirt'
   or tags contains 'poloshirts'
   or tags contains 'ladiesshirt'
   or tags contains 'mensshirts'
-  or tags contains 'womenpoloshirt' %}
+  or tags contains 'womenpoloshirt'
+%}
   {% assign moq = 20 %}
 
 {% elsif tags contains 'sweatshirts' %}
@@ -59,21 +53,22 @@
   or tags contains 'gloves'
   or tags contains 'aprons'
   or tags contains 'kidscaps'
-  or tags contains 'kidsjackets' %}
+  or tags contains 'kidsjackets'
+%}
   {% assign moq = 25 %}
 
-{% elsif tags contains 'wristbands'
-  or tags contains 'shoelaces' %}
+{% elsif tags contains 'wristbands' or tags contains 'shoelaces' %}
   {% assign moq = 100 %}
 
-{%- comment -%} 🖊 Pens {%- endcomment -%}
+  {%- comment -%} 🖊 Pens {%- endcomment -%}
 {% elsif tags contains 'plasticpens'
   or tags contains 'highlighter'
   or tags contains 'metalpens'
-  or tags contains 'ecopens' %}
+  or tags contains 'ecopens'
+%}
   {% assign moq = 100 %}
 
-{%- comment -%} 🍺 Drinkware {%- endcomment -%}
+  {%- comment -%} 🍺 Drinkware {%- endcomment -%}
 {% elsif tags contains 'icebuckets' %}
   {% assign moq = 12 %}
 
@@ -92,28 +87,25 @@
   or tags contains 'barrunners'
   or tags contains 'steemedglasses'
   or tags contains 'beerglasses'
-  or tags contains 'glassmugs' %}
+  or tags contains 'glassmugs'
+%}
   {% assign moq = 25 %}
 
-{% elsif tags contains 'ceramicmugs'
-  or tags contains 'metaltraveltumbler'
-  or tags contains 'etchedmugs' %}
+{% elsif tags contains 'ceramicmugs' or tags contains 'metaltraveltumbler' or tags contains 'etchedmugs' %}
   {% assign moq = 40 %}
 
 {% elsif tags contains 'plasticmugs'
   or tags contains 'chinamugs'
   or tags contains 'heatchangingmugs'
   or tags contains 'fullcolourphotomugs'
-  or tags contains 'trays' %}
+  or tags contains 'trays'
+%}
   {% assign moq = 30 %}
 
-{% elsif tags contains 'plastictumblers'
-  or tags contains 'thermalmug' %}
+{% elsif tags contains 'plastictumblers' or tags contains 'thermalmug' %}
   {% assign moq = 35 %}
 
-{% elsif tags contains 'insulatedtumbler'
-  or tags contains 'metaltumbler'
-  or tags contains 'flasks' %}
+{% elsif tags contains 'insulatedtumbler' or tags contains 'metaltumbler' or tags contains 'flasks' %}
   {% assign moq = 20 %}
 
 {% elsif tags contains 'plasticcups' %}
@@ -127,7 +119,8 @@
   or tags contains 'stainlesssteelcup'
   or tags contains 'cocktailshaker'
   or tags contains 'metaltumbler'
-  or tags contains 'polystyrenecups' %}
+  or tags contains 'polystyrenecups'
+%}
   {% assign moq = 50 %}
 
 {% elsif tags contains 'plasticwaterbottle'
@@ -137,33 +130,35 @@
   or tags contains 'shotglasses'
   or tags contains 'straws'
   or tags contains 'chalkmugs'
-  or tags contains 'papercupsleeves' %}
+  or tags contains 'papercupsleeves'
+%}
   {% assign moq = 100 %}
 
-{%- comment -%} 🎒 Bags & Travel {%- endcomment -%}
+  {%- comment -%} 🎒 Bags & Travel {%- endcomment -%}
 {% elsif tags contains 'totebags'
   or tags contains 'paperbags'
   or tags contains 'plasticcarrierbags'
   or tags contains 'eyemask'
-  or tags contains 'cardholder' %}
+  or tags contains 'cardholder'
+%}
   {% assign moq = 100 %}
 
 {% elsif tags contains 'drawstringbags'
   or tags contains 'toiletrybags'
   or tags contains 'documentbags'
   or tags contains 'conferencebags'
-  or tags contains 'travelsets' %}
+  or tags contains 'travelsets'
+%}
   {% assign moq = 50 %}
 
 {% elsif tags contains 'laptopbag'
   or tags contains 'lunchbags'
   or tags contains 'travelbagstrolleys'
-  or tags contains 'travelkit' %}
+  or tags contains 'travelkit'
+%}
   {% assign moq = 20 %}
 
-{% elsif tags contains 'travelpouches'
-  or tags contains 'pouchbag'
-  or tags contains 'nonwovenpouches' %}
+{% elsif tags contains 'travelpouches' or tags contains 'pouchbag' or tags contains 'nonwovenpouches' %}
   {% assign moq = 40 %}
 
 {% elsif tags contains 'dufflebags' %}
@@ -172,15 +167,13 @@
 {% elsif tags contains 'travelcannister' %}
   {% assign moq = 5 %}
 
-{% elsif tags contains 'backpacks'
-  or tags contains 'keychaingift'
-  or tags contains 'pengift' %}
+{% elsif tags contains 'backpacks' or tags contains 'keychaingift' or tags contains 'pengift' %}
   {% assign moq = 25 %}
 
 {% elsif tags contains 'jutebags' %}
   {% assign moq = 30 %}
 
-{%- comment -%} 🏢 Office & Supply {%- endcomment -%}
+  {%- comment -%} 🏢 Office & Supply {%- endcomment -%}
 {% elsif tags contains 'notebooksa5' %}
   {% assign moq = 60 %}
 
@@ -190,16 +183,13 @@
 {% elsif tags contains 'deskorganizers' %}
   {% assign moq = 20 %}
 
-{% elsif tags contains 'deskblotters'
-  or tags contains 'conferencefolder'
-  or tags contains 'aromadiffuser' %}
+{% elsif tags contains 'deskblotters' or tags contains 'conferencefolder' or tags contains 'aromadiffuser' %}
   {% assign moq = 25 %}
 
 {% elsif tags contains 'notebooksa6' %}
   {% assign moq = 35 %}
 
-{% elsif tags contains 'memopads'
-  or tags contains 'memoblocks' %}
+{% elsif tags contains 'memopads' or tags contains 'memoblocks' %}
   {% assign moq = 40 %}
 
 {% elsif tags contains 'notebooksa4'
@@ -213,7 +203,8 @@
   or tags contains 'mousepads'
   or tags contains 'eraser'
   or tags contains 'passholders'
-  or tags contains 'pencil' %}
+  or tags contains 'pencil'
+%}
   {% assign moq = 100 %}
 
 {% elsif tags contains 'recyclednotebook'
@@ -221,22 +212,25 @@
   or tags contains 'calendar'
   or tags contains 'deskclocks'
   or tags contains 'tabletfolder'
-  or tags contains 'desklamp' %}
+  or tags contains 'desklamp'
+%}
   {% assign moq = 50 %}
 
-{%- comment -%} 🔌 Gadgets {%- endcomment -%}
+  {%- comment -%} 🔌 Gadgets {%- endcomment -%}
 {% elsif tags contains 'wirelessearphone'
   or tags contains 'speaker'
   or tags contains 'mouses'
   or tags contains 'camera'
-  or tags contains 'usbpowerchargers' %}
+  or tags contains 'usbpowerchargers'
+%}
   {% assign moq = 10 %}
 
-{% elsif tags contains 'headphones' 
-  or tags contains 'qrcode' 
-  or tags contains 'magnets' 
-  or tags contains 'metaltags' 
-  or tags contains 'plasticcards' %}
+{% elsif tags contains 'headphones'
+  or tags contains 'qrcode'
+  or tags contains 'magnets'
+  or tags contains 'metaltags'
+  or tags contains 'plasticcards'
+%}
   {% assign moq = 15 %}
 
 {% elsif tags contains 'powerbank'
@@ -244,7 +238,8 @@
   or tags contains 'bluetoothspeaker'
   or tags contains 'wirelessearbuds'
   or tags contains 'umbrella'
-  or tags contains 'fleeceblankets' %}
+  or tags contains 'fleeceblankets'
+%}
   {% assign moq = 20 %}
 
 {% elsif tags contains 'touchscreengloves'
@@ -255,8 +250,9 @@
   or tags contains 'digitalclocks'
   or tags contains 'digitallocks'
   or tags contains 'keyboard'
-  or tags contains 'weatherstation' 
-  or tags contains 'giftsets' %}
+  or tags contains 'weatherstation'
+  or tags contains 'giftsets'
+%}
   {% assign moq = 25 %}
 
 {% elsif tags contains 'mobilecaseholder'
@@ -264,8 +260,9 @@
   or tags contains 'webcamcover'
   or tags contains 'watch'
   or tags contains 'smartbands'
-  or tags contains 'usbchargingcables' 
-  or tags contains 'phonestand' %}
+  or tags contains 'usbchargingcables'
+  or tags contains 'phonestand'
+%}
   {% assign moq = 50 %}
 
 {% elsif tags contains 'lanyard'
@@ -274,26 +271,22 @@
   or tags contains 'keyrings'
   or tags contains 'eventpacks'
   or tags contains 'usbflashdrive'
-  or tags contains 'microfibrescreencloth' 
-  or tags contains 'pedometers' %}
+  or tags contains 'microfibrescreencloth'
+  or tags contains 'pedometers'
+%}
   {% assign moq = 100 %}
 
-{%- comment -%} 🌴 Outdoors {%- endcomment -%}
-{% elsif tags contains 'beachchairsloungers' 
-    or tags contains 'picnictable' %}
+  {%- comment -%} 🌴 Outdoors {%- endcomment -%}
+{% elsif tags contains 'beachchairsloungers' or tags contains 'picnictable' %}
   {% assign moq = 5 %}
 
-{% elsif tags contains 'beachtoys'
-  or tags contains 'sports'
-  or tags contains 'games' %}
+{% elsif tags contains 'beachtoys' or tags contains 'sports' or tags contains 'games' %}
   {% assign moq = 50 %}
 
-{% elsif tags contains 'sunglasses'
-  or tags contains 'gardening'
-  or tags contains 'cutlerysets' %}
+{% elsif tags contains 'sunglasses' or tags contains 'gardening' or tags contains 'cutlerysets' %}
   {% assign moq = 100 %}
 
-{%- comment -%} 🩺 Safety {%- endcomment -%}
+  {%- comment -%} 🩺 Safety {%- endcomment -%}
 {% elsif tags contains 'careessentials'
   or tags contains 'firstaidkits'
   or tags contains 'antistress'
@@ -305,8 +298,8 @@
   or tags contains 'warmpads'
   or tags contains 'medicalproducts'
   or tags contains 'mirror'
-  or tags contains 'lipbalm' %}
-
+  or tags contains 'lipbalm'
+%}
   {% assign moq = 100 %}
 
 {% elsif tags contains 'pillboxes'
@@ -315,16 +308,24 @@
   or tags contains 'tissuebox'
   or tags contains 'wetwipes'
   or tags contains 'tablecloths'
-  %}
+%}
   {% assign moq = 50 %}
 
-{%- comment -%} 🏆 Awards {%- endcomment -%}
-{% elsif tags contains 'award'
-  or tags contains 'paperweight' %}
+  {%- comment -%} 🏆 Awards {%- endcomment -%}
+{% elsif tags contains 'award' or tags contains 'paperweight' %}
   {% assign moq = 10 %}
 {% endif %}
-<div class="quote-form-container" style="background-color: {{ block.settings.background_color }}; margin: {{ block.settings.button_margin }}">
-  <button class="quote-toggle-btn" style="background: {{ block.settings.button_background_color }}" onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')">Request a Quote</button>
+<div
+  class="quote-form-container"
+  style="background-color: {{ block.settings.background_color }}; margin: {{ block.settings.button_margin }}"
+>
+  <button
+    class="quote-toggle-btn"
+    style="background: {{ block.settings.button_background_color }}"
+    onclick="document.querySelector('.quote-form-wrapper').classList.toggle('open')"
+  >
+    Request a Quote
+  </button>
 
   <div class="quote-form-wrapper">
     <form class="quote-form" id="quote-form" novalidate>
@@ -342,8 +343,28 @@
       <label>Enter Your Requirements *</label>
       <textarea name="message" required></textarea>
 
-    <label>Quantity *</label>
-      <input type="number" name="quantity" value="{{ moq }}" min="{{ moq }}" required>
+      <!--
+        <label>Quantity *</label>
+        <input type="number" name="quantity" value="{{ moq }}" min="{{ moq }}" required>
+      -->
+      <div class="quote-row">
+        <div class="quote-field">
+          <label>Quantity *</label>
+          <input type="number" name="quantity" value="{{ moq }}" min="{{ moq }}" required>
+        </div>
+
+        <div class="quote-field">
+          <label>Printing Option *</label>
+          <select
+            name="printing_option"
+            id="quote_printing_option"
+            required
+          >
+            <option value="">Select Printing Option</option>
+          </select>
+          <input type="hidden" name="printing_price" id="quote_printing_price">
+        </div>
+      </div>
 
       <label>Email *</label>
       <input type="email" name="email" required>
@@ -354,7 +375,11 @@
       <!-- 🔹 Hidden product details -->
       <input type="hidden" name="product_title" value="{{ product.title }}">
       <input type="hidden" name="product_image" value="{{ product.featured_image | img_url: 'large' }}">
-      <input type="hidden" name="unit_price" value="{{ product.selected_or_first_available_variant.price | money_without_currency }}">
+      <input
+        type="hidden"
+        name="unit_price"
+        value="{{ product.selected_or_first_available_variant.price | money_without_currency }}"
+      >
       {%- assign current_variant = product.selected_or_first_available_variant -%}
       <input type="hidden" name="item_code" value="{{ current_variant.sku }}">
       <button type="submit" class="submit-btn">Submit Quote</button>
@@ -364,8 +389,55 @@
   </div>
 </div>
 
-<link rel="stylesheet" href="{{ 'quote-form.css' | asset_url }}" />
+<link rel="stylesheet" href="{{ 'quote-form.css' | asset_url }}">
 <script src="{{ 'quote-form.js' | asset_url }}" defer></script>
+<script>
+  (function () {
+    function waitForThemeSelect() {
+      const themeSelect = document.getElementById('printing_option'); // theme dropdown
+      const quoteSelect = document.getElementById('quote_printing_option'); // app dropdown
+      const quotePrice = document.getElementById('quote_printing_price');
+
+      if (!themeSelect || !quoteSelect) {
+        setTimeout(waitForThemeSelect, 300);
+        return;
+      }
+
+      // Reset app select
+      quoteSelect.innerHTML = '<option value="">Select Printing Option</option>';
+
+      // Copy options from theme → app
+      [...themeSelect.options].forEach((opt) => {
+        if (!opt.value) return;
+
+        const price = opt.dataset.price || '0.00';
+
+        const newOpt = document.createElement('option');
+        newOpt.value = opt.value;
+        newOpt.textContent = opt.text; // already contains (£price)
+        newOpt.dataset.price = price;
+
+        quoteSelect.appendChild(newOpt);
+      });
+
+      // App → Theme sync
+      quoteSelect.addEventListener('change', function () {
+        const selectedValue = this.value;
+        const selectedPrice = this.selectedOptions[0]?.dataset.price || '';
+
+        quotePrice.value = selectedPrice;
+
+        [...themeSelect.options].forEach((o) => {
+          o.selected = o.value === selectedValue;
+        });
+
+        themeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+
+    waitForThemeSelect();
+  })();
+</script>
 
 {% schema %}
 {
@@ -380,10 +452,10 @@
       "default": "#000000"
     },
     {
-      "type":"text",
-      "id":"button_margin",
-      "label":"Button Margin",
-      "default":"0px 0px 10px 0px"
+      "type": "text",
+      "id": "button_margin",
+      "label": "Button Margin",
+      "default": "0px 0px 10px 0px"
     },
     {
       "type": "color",
@@ -394,4 +466,3 @@
   ]
 }
 {% endschema %}
-
