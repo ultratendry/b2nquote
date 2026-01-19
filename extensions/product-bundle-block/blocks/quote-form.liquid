@@ -358,6 +358,8 @@
       {%- assign current_variant = product.selected_or_first_available_variant -%}
       <input type="hidden" name="item_code" value="{{ current_variant.sku }}">
       <button type="submit" class="submit-btn">Submit Quote</button>
+      <input type="hidden" name="printing_option" id="quote_printing_option">
+      <input type="hidden" name="printing_price" id="quote_printing_price">
     </form>
   </div>
 </div>
