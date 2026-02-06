@@ -27,12 +27,10 @@ export const action = async ({ request }) => {
     const message = form.get("message")?.toString().trim() || null;
     const product = form.get("product")?.toString().trim() || null;
 
-    // Validation (all required fields, including company, location, product)
     if (!name || !company || !location || !email || !phone || !quantity || !message || !product) {
       return json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    // Save to DB
     await prisma.quoteRequest.create({
       data: {
         name,
@@ -40,10 +38,10 @@ export const action = async ({ request }) => {
         location,
         email,
         phone,
-        quantity: quantityRaw, // Save as string, matches schema
+        quantity: quantityRaw,
         message,
         product,
-        productImage: productImageBuffer ? productImageBuffer.toString('base64') : null, // Save as base64 string
+        productImage: productImageBuffer ? productImageBuffer.toString('base64') : null,
       },
     });
 
@@ -64,7 +62,7 @@ export const action = async ({ request }) => {
     try {
       await sendBrevoTemplateMail({
         to: email,
-        templateId: 8, // Use template 8 for site-quote
+        templateId: 8,
         subject,
         params: {
           name,
@@ -82,7 +80,7 @@ export const action = async ({ request }) => {
       });
       await sendBrevoTemplateMail({
         to: "asim.h@ultratend.com",
-        templateId: 8, // Use template 8 for site-quote
+        templateId: 8,
         subject: adminSubject,
         params: {
           name,

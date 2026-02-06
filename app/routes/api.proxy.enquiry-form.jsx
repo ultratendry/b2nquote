@@ -64,7 +64,7 @@ export const action = async ({ request }) => {
         });
 
         await sendBrevoTemplateMail({
-            to: "ravindra.y@ultratend.com",
+            to: "asim.h@ultratend.com",
             templateId: 10,
             subject: adminSubject,
             params: {

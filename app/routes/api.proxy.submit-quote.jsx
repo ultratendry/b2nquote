@@ -109,7 +109,7 @@ export async function action({ request }) {
     // Customer email (template 5 for product/extension)
     await sendBrevoTemplateMail({
       to: email,
-      templateId: 5, // Use template 5 for product/extension
+      templateId: 5,
       subject: customerSubject,
       params,
     });
