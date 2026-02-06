@@ -59,3 +59,17 @@ model QuoteRequest {
   logoImage    String?
   createdAt    DateTime @default(now())
 }
+
+model EnquiryRequest {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  location  String
+  productTitle String?
+  productImage String?
+  itemCode  String?
+  unitPrice String?
+  quantity  String?
+  createdAt DateTime @default(now())
+}
